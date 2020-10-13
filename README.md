@@ -2,16 +2,16 @@
 
 ## usersテーブル
 
-| Column      | Type    | Options     |
-| ----------- | ------- | ----------- |
-| nickname    | string  | null: false |
-| email       | string  | null: false |
-| password    | string  | null: false |
-| first_name  | string  | null: false |
-| last_name   | string  | null: false |
-| birth_year  | integer | null: false |
-| birth_month | integer | null: false |
-| birth_day   | integer | null: false |
+| Column          | Type    | Options     |
+| --------------- | ------- | ----------- |
+| nickname        | string  | null: false |
+| email           | string  | null: false |
+| password        | string  | null: false |
+| first_name      | string  | null: false |
+| last_name       | string  | null: false |
+| first_name_kana | string  | null: false |
+| last_name_kana  | string  | null: false |
+| birthday       | date    | null: false |
 
 ### Association
 
@@ -21,47 +21,49 @@
 
 ## itemsテーブル
 
-| Column          | Type       | Options     |
-| --------------- | ---------- | ----------- |
-| item            | string     | null: false |
-| description     | text       | null: false |
-| seller          | text       | null: false |
-| category        | string     | null: false |
-| status          | string     | null: false |
-| shipping_fee    | string     | null: false |
-| delivery_source | string     | null: false |
-| delivery_days   | string     | null: false |
-| price           | integer    | null: false |
-| user            | references |             |
+| Column             | Type       | Options     |
+| ------------------ | ---------- | ----------- |
+| item               | string     | null: false |
+| description        | text       | null: false |
+| category_id        | integer    | null: false |
+| status_id          | integer    | null: false |
+| shipping_fee_id    | integer    | null: false |
+| delivery_source_id | integer    | null: false |
+| delivery_days_id   | integer    | null: false |
+| price              | integer    | null: false |
+| user               | references |             |
 
 ### Association
 
 - has_many :comments
 - belongs_to :user
-- has_one :purchases
+- has_many :purchases
 
-## purchasesテーブル
+## addressテーブル
 
-| Column        | Type       | Options                     |
-| ------------- | ---------- | --------------------------- |
-| sold          | string     | null: false, default: false |
-| credit_number | integer    | null: false                 |
-| credit_month  | integer    | null: false                 |
-| credit_year   | integer    | null: false                 |
-| credit_code   | integer    | null: false                 |
-| postal_code   | string     | null: false                 |
-| prefecture    | string     | null: false                 |
-| city          | string     | null: false                 |
-| address       | string     | null: false                 |
-| build_name    | string     |                             |
-| tel           | string     | null: false                 |
-| user          | references |                             |
-| item          | references |                             |
+| Column        | Type       | Options      |
+| ------------- | ---------- | ------------ |
+| postal_code   | string     | null: false  |
+| prefecture_id | integer    | null: false  |
+| city          | string     | null: false  |
+| address       | string     | null: false  |
+| build_name    | string     |              |
+| tel           | string     | null: false  |
 
 ### Association
 
-- belongs_to :user
-- belongs_to :item
+- belongs_to :purchases
+
+## purchasesテーブル
+
+| Column | Type       | Options      |
+| ------ | ---------- | ------------ |
+| user   | references |              |
+| item   | references |              |
+
+belongs_to :user
+belongs_to :item
+has_one :address
 
 ## commentsテーブル
 
