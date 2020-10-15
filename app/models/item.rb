@@ -10,4 +10,8 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
+  validates :name, :description, :image, :category, :status, :shipping_fee, :delivery_source, :delivery_days, :price, presence: true
+
+  validates :category_id, :status_id, :shipping_fee_id, :delivery_source_id, :delivery_days_id, numericality: { other_than: 1 }
+
 end
