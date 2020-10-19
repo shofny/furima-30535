@@ -10,4 +10,4 @@ function price (){
 
 }
 
-window.addEventListener('load',price)
+window.addEventListener('turbolinks:load',price)
