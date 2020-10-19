@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   name_check = /\A[ぁ-んァ-ン一-龥]+\z/
   name_check_kana = /\A[ァ-ン]+\z/
-  
+
   validates :nickname, presence: true
   validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i }
   validates :first_name, presence: true, format: { with: name_check }

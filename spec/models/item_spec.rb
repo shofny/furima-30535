@@ -20,12 +20,12 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Image can't be blank")
       end
       it '2-2,商品名空白' do
-        @item.name = ""
+        @item.name = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Name can't be blank")
       end
       it '2-3,商品説明空白' do
-        @item.description = ""
+        @item.description = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Description can't be blank")
       end
@@ -55,21 +55,20 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Delivery days can't select '---'")
       end
       it '2-9,販売価格空白' do
-        @item.price = ""
+        @item.price = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
       it '2-10,販売価格が指定された金額枠外' do
-        @item.price = 1234567890
+        @item.price = 1_234_567_890
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price within the range form 300 ~ 9,999,999")
+        expect(@item.errors.full_messages).to include('Price within the range form 300 ~ 9,999,999')
       end
       it '2-11,販売価格欄に半角数字以外が入っている' do
-        @item.price = "test"
+        @item.price = 'test'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not a number")
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
     end
   end
-
 end
