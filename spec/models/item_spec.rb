@@ -59,13 +59,18 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
-      it '2-10,販売価格が指定された金額枠外' do
+      it '2-10,販売価格が指定された金額枠外(9,999,999以上)' do
         @item.price = 1_234_567_890
         @item.valid?
         expect(@item.errors.full_messages).to include('Price within the range form 300 ~ 9,999,999')
       end
-      it '2-11,販売価格欄に半角数字以外が入っている' do
-        @item.price = 'test'
+      it '2-11,販売価格が指定された金額枠外(300未満)' do
+        @item.price = 30
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price within the range form 300 ~ 9,999,999')
+      end
+      it '2-12,販売価格欄に半角数字以外が入っている' do
+        @item.price = "test"
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
       end
