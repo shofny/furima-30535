@@ -70,7 +70,7 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Price within the range form 300 ~ 9,999,999')
       end
       it '2-12,販売価格欄に半角数字以外が入っている' do
-        @item.price = 'test'
+        @item.price = "test"
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
       end
