@@ -17,8 +17,18 @@ const pay = () => {
     Payjp.createToken(card, (status,response) => {
       if (status == 200) {
         const token = response.id
-        console.log(token)
+        const renderDOM = document.getElementById("charge-form")
+        const tokenObject = `<input value=${token} name='token' type='hidden'>`
+        renderDOM.insertAdjacentHTML("beforeend", tokenObject)
       }
+
+      document.getElementById("card-number").removeAttribute("name")
+      document.getElementById("card-exp-month").removeAttribute("name")
+      document.getElementById("card-exp-year").removeAttribute("name")
+      document.getElementById("card-cvc").removeAttribute("name")
+
+      document.getElementById("charge-form").submit();
+
     });
   });
 };
