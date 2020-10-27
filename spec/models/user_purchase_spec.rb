@@ -65,7 +65,6 @@ RSpec.describe UserPurchase, type: :model do
       it '2-8,電話番号12桁以上' do
         @purchase.tel = 123_456_789_012
         @purchase.valid?
-        binding.pry
         expect(@purchase.errors.full_messages).to include('Tel is too long (maximum is 11 characters)')
       end
     end
