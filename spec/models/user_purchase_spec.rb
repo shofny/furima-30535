@@ -44,25 +44,31 @@ RSpec.describe UserPurchase, type: :model do
         expect(@purchase.errors.full_messages).to include("Prefecuture can't select '---'")
       end
 
-      it '2-5,市区町村空白' do
+      it '2-5,都道府県空欄' do
+        @purchase.prefecuture_id = ""
+        @purchase.valid?
+        expect(@purchase.errors.full_messages).to include("Prefecuture can't be blank")
+      end
+ 
+      it '2-6,市区町村空白' do
         @purchase.city = ''
         @purchase.valid?
         expect(@purchase.errors.full_messages).to include("City can't be blank")
       end
 
-      it '2-6,番地空白' do
+      it '2-7,番地空白' do
         @purchase.address = ''
         @purchase.valid?
         expect(@purchase.errors.full_messages).to include("Address can't be blank")
       end
 
-      it '2-7,電話番号空白' do
+      it '2-8,電話番号空白' do
         @purchase.tel = ''
         @purchase.valid?
         expect(@purchase.errors.full_messages).to include("Tel can't be blank")
       end
 
-      it '2-8,電話番号12桁以上' do
+      it '2-9,電話番号12桁以上' do
         @purchase.tel = 123_456_789_012
         @purchase.valid?
         expect(@purchase.errors.full_messages).to include('Tel is too long (maximum is 11 characters)')

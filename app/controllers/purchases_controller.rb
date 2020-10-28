@@ -1,21 +1,19 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!
   before_action :go_to_index
+  before_action :find_item, only: [:index, :create]
 
   def index
-    @item = Item.find(params[:item_id])
     @user_purchase = UserPurchase.new
   end
 
   def create
     @user_purchase = UserPurchase.new(params_purchase)
-    @item = Item.find(params[:item_id])
     if @user_purchase.valid?
       item_pay
       @user_purchase.save
       redirect_to root_path
     else
-      @item = Item.find(params[:item_id])
       render action: :index
     end
   end
@@ -37,10 +35,10 @@ class PurchasesController < ApplicationController
 
   def go_to_index
     @item = Item.find(params[:item_id])
-    if @item.purchase.present?
-      redirect_to root_path
-      return
-    end
-    redirect_to root_path unless current_user.id != @item.user.id
+    redirect_to root_path if current_user.id == @item.user.id || @item.purchase.present?
+  end
+
+  def find_item
+    @item = Item.find(params[:item_id])
   end
 end
