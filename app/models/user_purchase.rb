@@ -5,7 +5,9 @@ class UserPurchase
 
   validates :token, :user_id, :item_id, :postal_code, :prefecuture_id, :city, :address, :tel, presence: true
   validates :postal_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/ }
+
   validates :tel, length: { maximum: 11 }
+  validates :tel, format: { with: /\A[0-9]+\z/ }
   validates :prefecuture_id, numericality: { other_than: 1, message: "can't select '---'" }
   def save
     purchase = Purchase.create(item_id: item_id, user_id: user_id)
